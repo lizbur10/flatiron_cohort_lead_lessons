@@ -14,8 +14,6 @@ A framework built in JS to make frontends
     - You can think of it like "syntactic sugar". 
 
 
-    Remember how Ruby let you say things like `dog.age = 4` even though actually you were doing `dog.age=(4)`? You can almost think of this the same way, except it cannot be compiled by a standard JavaScript compiler - we need to put it through a special pre-processor to turn it into Vanilla JS. 
-
     JSX lets us write HTML-like syntax directly in with our JavaScript.
 
 ```jsx
@@ -23,14 +21,14 @@ class Card extends React.Component{
   
 
   handleClick(){
-	alert('click')
+	  alert('click')
   }
   
   render(){
     return (
       <div className="card">
         <h2></h2>
-        <button onClick={this.handleClick.bind(this) }>This is a test</button>
+        <button onClick={this.handleClick(this)}>This is a test</button>
         <div className="bodyContainer" >
         	<p id="card-body">
               {this.props.data}
@@ -50,23 +48,23 @@ class Card extends React.Component{
 
 ### What is a transpiler?
 
-    - A transpiler simply takes code from one language and converts it to source code in another language.
+    - A transpiler simply takes code from one language (or one version of a language) and converts it to source code in another language/version.
 
 ### What is Babel? 
 
-    - Babel is the *transpiler* that takes our JSX and turns it into Vanilla JS. I will show you some input and output source code, where the input is JSX and the output is Vanilla JS:
-
+    - Babel is the *transpiler* that takes our JSX and turns it into Vanilla JS. Its primary use is to translate ES6 into a backwards compatible version of JS that will run in older JS engines, but it also handles JSX
+    
+    [Example]
+    
     Input JSX:
 ```jsx
 import React from 'react'
-const element = <h1>Hello, world!</h1>
-
 
 class Card extends React.Component{
   
 
   handleClick(){
-	alert('click')
+	  alert('click')
   }
   
   render(){
@@ -89,8 +87,6 @@ class Card extends React.Component{
 
     Output JS:
 ```js
-import React from 'react';
-const element = React.createElement("h1", null, "Hello, world!");
 
 class Card extends React.Component {
   handleClick() {
@@ -101,7 +97,7 @@ class Card extends React.Component {
     return React.createElement("div", {
       className: "card"
     }, React.createElement("h2", null), React.createElement("button", {
-      onClick: this.handleClick.bind(this)
+      onClick: this.handleClick(this)
     }, "This is a test"), React.createElement("div", {
       className: "bodyContainer"
     }, React.createElement("p", {
